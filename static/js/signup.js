@@ -1,4 +1,7 @@
 // ChatLife — signup page
+if (true){
+console.log("yoooooooooo")
+    }
 (function () {
   const form = document.getElementById("signup-form");
   const msg = document.getElementById("auth-msg");
@@ -29,28 +32,46 @@
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     const data = new FormData(form);
-    const name = String(data.get("name") || "").trim();
-    const email = String(data.get("email") || "").trim();
+    const firstname = String(data.get("firstname") || "").trim();
+    const lastname = String(data.get("lastname") || "").trim();
+    const username = String(data.get("username") || "").trim();
+    const gender = String(data.get("gender") || "").trim();
+    const birthday = String(data.get("birthday") || "").trim();
+    const birthDate = new Date(birthday);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
     const password = String(data.get("password") || "");
-    const terms = data.get("terms");
 
     msg.classList.remove("error", "success");
 
-    if (name.length < 2) return fail("Please enter your full name.");
-    if (!email.includes("@")) return fail("Please enter a valid email.");
+    if (firstname.length < 1) return fail("Please enter your first name.");
+    if (lastname.length < 1) return fail("Please enter your last name.");
+    if (!/^[a-zA-Z0-9_.-]{2,}$/.test(username)) return fail("Username must be 2+ chars (letters, numbers, . _ -).");
+    if (!gender) return fail("Please select a gender.");
+    if (!Number.isFinite(age) || age < 13 || age > 120) return fail("Please enter a valid age (13–120).");
+    if (!birthday) return fail("Please enter your birthday.");
     if (password.length < 8) return fail("Password must be at least 8 characters.");
-    if (!terms) return fail("Please accept the Terms to continue.");
 
     const btn = form.querySelector(".auth-submit");
     const original = btn.textContent;
     btn.disabled = true;
     btn.textContent = "Creating your account…";
-
+    console.log("its here!")
+    form.submit()
     setTimeout(function () {
       try {
         localStorage.setItem(
           "chatlife:user",
-          JSON.stringify({ name: name, email: email, at: Date.now() })
+          JSON.stringify({
+            name: firstname + " " + lastname,
+            firstname: firstname,
+            lastname: lastname,
+            username: username,
+            gender: gender,
+            age: age,
+            birthday: birthday,
+            at: Date.now()
+          })
         );
       } catch (_) {}
       msg.textContent = "Welcome to ChatLife! Redirecting…";
