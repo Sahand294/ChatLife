@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{% block title %}ChatLife — Chat that actually feels alive{% endblock %}</title>
+    <meta name="description"
+          content="ChatLife is a fast, beautiful chat platform for teams and friends. Real-time messaging, end-to-end encryption, and zero clutter."/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static "css/styles.css" %}"/>
+    {% block css %}
+
+    {% endblock %}
+</head>
+<body>
+
+<nav class="nav">
+    <div class="container nav-inner">
+        <a href="#" class="brand"><span class="brand-dot"></span>ChatLife</a>
+        <div class="nav-links">
+            <a href="{% url "home" %}">Home</a>
+{#            <a href="#features">Features</a>#}
+            <a href="{% url "profile" %}">profile</a>
+            <a href="{% url "cons" %}">Conversations</a>
+        </div>
+        <div class="nav-cta">
+            <a href="{% url "log_in" %}" class="btn">Sign in</a>
+            {#            <a href="#" class="btn btn-primary">Get ChatLife →</a>#}
+        </div>
+    </div>
+</nav>
+{% block content %}
+    <header class="hero">
+        <div class="container hero-grid">
+            <div>
+                <span class="eyebrow"><span class="pulse"></span> Now with voice rooms</span>
+                <h1>Chat that <span class="grad">actually feels</span> alive.</h1>
+                <p class="lead">ChatLife is the messenger built for the way you actually talk — instant, expressive, and
+                    beautifully out of the way. No noise, no clutter, just signal.</p>
+                <div class="hero-cta">
+                    <a href="#" class="btn btn-primary">Start chatting free →</a>
+                    <a href="#features" class="btn">See how it works</a>
+                </div>
+                <div class="hero-meta">
+                    {#        <div class="meta-item"><div class="num">4.9★</div><div class="label">App Store</div></div>#}
+                    <div class="meta-item">
+                        <div class="num">12M+</div>
+                        <div class="label">Messages / day</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="num">E2EE</div>
+                        <div class="label">By default</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-mock">
+                <div class="chat-head">
+                    <div class="avatar">MA</div>
+                    <div>
+                        <div class="name">Maya Anderson</div>
+                        <div class="status">● Active now</div>
+                    </div>
+                </div>
+                <div class="chat-body">
+                    <div class="bubble in">Hey! Did you see the new launch? 🚀</div>
+                    <div class="bubble out">Yes — it's gorgeous. ChatLife nailed it.</div>
+                    <div class="bubble in">Right? The animations are buttery.</div>
+                    <div class="bubble out">Trying it now ✨</div>
+                    <div class="typing"><span></span><span></span><span></span></div>
+                </div>
+                <form class="chat-input">
+                    <input type="text" placeholder="Type a message…" autocomplete="off"/>
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-head">
+                <h2>Built for the way you talk.</h2>
+                <p>Every detail tuned for speed, privacy, and joy. No bloat, no ads, no compromises.</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="icon">⚡</div>
+                    <h3>Instant by design</h3>
+                    <p>Sub-100ms message delivery globally. ChatLife feels less like an app and more like talking in
+                        person.</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">🔒</div>
+                    <h3>End-to-end encrypted</h3>
+                    <p>Every message, call, and file is locked down. Not even we can read your conversations.</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">🎙️</div>
+                    <h3>Drop-in voice rooms</h3>
+                    <p>Hop into a room with one tap. Crystal-clear audio for teams, friends, or just hanging out.</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">✨</div>
+                    <h3>Reactions that pop</h3>
+                    <p>Expressive emoji, animated stickers, and thread replies that don't get in the way.</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">🧠</div>
+                    <h3>Smart summaries</h3>
+                    <p>Catch up on long threads in seconds with on-device AI summaries you can trust.</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">🌍</div>
+                    <h3>Works everywhere</h3>
+                    <p>iOS, Android, macOS, Windows, Linux, and web. Sync is instant and lossless across devices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <div class="cta-card">
+                <h2>Your chat, <span
+                        style="background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;">finally good.</span>
+                </h2>
+                <p>Join millions already on ChatLife. Free forever for personal use.</p>
+                <a href="#" class="btn btn-primary">Get ChatLife — it's free →</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+<footer>
+    <div class="container" style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:16px;">
+        <div>© 2026 ChatLife Labs. All rights reserved.</div>
+        <div style="display:flex;gap:24px;">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Status</a>
+            <a href="#">Twitter</a>
+        </div>
+    </div>
+</footer>
+{% load static %}
+{% block js %}
+    <script src="{% static "js/script.js" %}"></script>
+{% endblock %}
+</body>
+</html>

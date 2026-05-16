@@ -1,0 +1,68 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title %}
+    Login in to Your Account in ChatLife
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static "css/styles.css"%}">
+{% endblock %}
+{% block content %}
+<main class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-side">
+      <span class="eyebrow"><span class="pulse"></span> Welcome back</span>
+      <h1>Sign in to <span class="grad">ChatLife</span>.</h1>
+      <p class="lead">Pick up your conversations exactly where you left off — across every device, instantly synced.</p>
+      <ul class="auth-points">
+        <li>🔒 End-to-end encrypted by default</li>
+        <li>⚡ Sub-100ms message delivery</li>
+        <li>✨ Zero ads. Ever.</li>
+      </ul>
+    </div>
+
+    <form class="auth-form" id="login-form" novalidate>
+      <h2>Sign in</h2>
+      <p class="auth-sub">Enter your details to continue.</p>
+
+      <div class="auth-socials">
+        <button type="button" class="btn auth-social">
+          <svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M21.35 11.1h-9.18v2.92h5.27c-.23 1.4-1.64 4.1-5.27 4.1-3.17 0-5.76-2.62-5.76-5.85s2.59-5.85 5.76-5.85c1.81 0 3.02.77 3.71 1.43l2.53-2.44C16.78 3.86 14.7 3 12.17 3 7.02 3 2.86 7.16 2.86 12.27s4.16 9.27 9.31 9.27c5.37 0 8.93-3.78 8.93-9.1 0-.61-.07-1.08-.15-1.34z"/></svg>
+          Google
+        </button>
+        <button type="button" class="btn auth-social">
+          <svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M16.37 1.43c0 1.14-.46 2.27-1.21 3.08-.81.88-2.13 1.55-3.21 1.46-.13-1.1.42-2.24 1.16-3.05.83-.92 2.24-1.6 3.26-1.49zM20.5 17.1c-.55 1.27-.81 1.83-1.52 2.95-.99 1.55-2.39 3.49-4.13 3.5-1.55.02-1.95-1-4.05-.99-2.1.01-2.55 1.01-4.1.99-1.74-.02-3.07-1.77-4.06-3.32C-.13 16.04-.41 10.95 1.34 8.27c1.24-1.9 3.2-3 5.04-3 1.87 0 3.05 1.02 4.6 1.02 1.5 0 2.42-1.02 4.58-1.02 1.64 0 3.38.89 4.62 2.43-4.06 2.22-3.4 8.01-1.68 9.4z"/></svg>
+          Apple
+        </button>
+      </div>
+
+      <div class="auth-divider"><span>or</span></div>
+
+      <label class="auth-field">
+        <span>Email</span>
+        <input type="email" name="email" placeholder="you@chatlife.com" required autocomplete="email" />
+      </label>
+
+      <label class="auth-field">
+        <span>Password</span>
+        <input type="password" name="password" placeholder="••••••••" required autocomplete="current-password" minlength="6" />
+      </label>
+
+      <div class="auth-row">
+        <label class="auth-check">
+          <input type="checkbox" name="remember" checked />
+          <span>Remember me</span>
+        </label>
+        <a href="#" class="auth-link">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary auth-submit">Sign in →</button>
+
+      <p class="auth-foot">New here? <a href="{% url "sign_up" %}" class="auth-link">Create an account</a></p>
+      <p class="auth-msg" id="auth-msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</main>
+{% endblock %}
+{% block js %}
+<script src="{% static "js/login.js"%}"></script>
+{% endblock %}

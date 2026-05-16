@@ -1,0 +1,101 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title %}
+    Your Profile!
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static "css/styles.css"%}">
+{% endblock %}
+{% block content %}
+<main class="profile-wrap">
+  <div class="container">
+    <div class="profile-card">
+      <div class="profile-cover"></div>
+
+      <div class="profile-head">
+        <div class="profile-avatar" id="profile-initials">MA</div>
+        <div class="profile-id">
+          <h1 id="profile-name">Maya Anderson</h1>
+          <p class="profile-handle" id="profile-handle">@maya</p>
+          <p class="profile-status"><span class="dot online"></span> <span id="profile-presence">Active now</span></p>
+        </div>
+        <div class="profile-actions">
+          <button class="btn" id="profile-edit-btn">Edit profile</button>
+          <button class="btn btn-primary" id="profile-message-btn">Open chat →</button>
+        </div>
+      </div>
+
+      <section class="profile-section">
+        <h3>About</h3>
+        <p class="profile-bio" id="profile-bio">
+          Product designer obsessed with small details. I build interfaces that feel
+          calm, fast and a little bit magical. Coffee, type, and tiny animations.
+        </p>
+      </section>
+
+      <section class="profile-section profile-grid">
+        <div class="profile-info">
+          <span class="profile-label">Email</span>
+          <span class="profile-value" id="profile-email">maya@chatlife.com</span>
+        </div>
+        <div class="profile-info">
+          <span class="profile-label">Location</span>
+          <span class="profile-value" id="profile-location">Lisbon, Portugal</span>
+        </div>
+        <div class="profile-info">
+          <span class="profile-label">Joined</span>
+          <span class="profile-value" id="profile-joined">May 2026</span>
+        </div>
+        <div class="profile-info">
+          <span class="profile-label">Pronouns</span>
+          <span class="profile-value" id="profile-pronouns">she / her</span>
+        </div>
+      </section>
+
+      <section class="profile-section">
+        <h3>Stats</h3>
+        <div class="profile-stats">
+          <div class="stat"><div class="num">1,284</div><div class="label">Messages</div></div>
+          <div class="stat"><div class="num">42</div><div class="label">Conversations</div></div>
+          <div class="stat"><div class="num">7</div><div class="label">Voice rooms</div></div>
+          <div class="stat"><div class="num">98%</div><div class="label">Reply rate</div></div>
+        </div>
+      </section>
+
+      <section class="profile-section">
+        <h3>Interests</h3>
+        <div class="profile-tags">
+          <span class="tag">Design</span>
+          <span class="tag">Typography</span>
+          <span class="tag">Coffee</span>
+          <span class="tag">Hiking</span>
+          <span class="tag">Indie music</span>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<!-- Edit modal -->
+<div class="modal" id="edit-modal" hidden>
+  <div class="modal-card">
+    <div class="modal-head">
+      <h2>Edit profile</h2>
+      <button class="icon-btn" id="modal-close" aria-label="Close">✕</button>
+    </div>
+    <form id="edit-form" class="auth-form" style="padding:0;gap:14px;">
+      <label class="auth-field"><span>Display name</span><input name="name" type="text" required /></label>
+      <label class="auth-field"><span>Handle</span><input name="handle" type="text" required /></label>
+      <label class="auth-field"><span>Bio</span><textarea name="bio" rows="3" maxlength="240"></textarea></label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <label class="auth-field"><span>Location</span><input name="location" type="text" /></label>
+        <label class="auth-field"><span>Pronouns</span><input name="pronouns" type="text" /></label>
+      </div>
+      <button type="submit" class="btn btn-primary auth-submit">Save changes</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="{% static "js/profile.js" %}"></script>
+{% endblock %}

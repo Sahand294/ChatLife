@@ -1,0 +1,37 @@
+{% extends "home.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "css/styles.css"%}">
+{% endblock %}
+{% block content %}
+<main class="conv-wrap">
+  <div class="conv-header">
+    <div>
+      <h1>Conversations</h1>
+      <p id="conv-status">Pick up where you left off.</p>
+    </div>
+    <label class="conv-search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+      <input id="conv-search-input" type="text" placeholder="Search conversations…" autocomplete="off" />
+    </label>
+  </div>
+
+  <div class="conv-layout" id="conv-layout">
+    <aside class="conv-list">
+      <div class="conv-list-head">
+        <h3>All chats</h3>
+        <span class="count" id="conv-count">0</span>
+      </div>
+      <div id="conv-list-body"></div>
+    </aside>
+
+    <section class="conv-thread" id="conv-thread"></section>
+  </div>
+</main>
+{% endblock %}
+
+{% block js %}
+<script src="{% static "js/conversations.js" %}"></script>
+{% endblock %}
+
