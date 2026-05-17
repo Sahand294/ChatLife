@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from .models import *
 # Create your views here.
 def profile(request):
+    if request.session["user_id"]:
+        return render(request,"profile.html",{"user_id":int(request.session["user_id"])})
     return render(request,"profile.html")
 def sign_up(request):
     if request.method == "POST":
@@ -23,6 +25,7 @@ def log_in(request):
         auth = authenticate(username=username,password=password)
         if auth:
             request.session["user_id"] = auth.id
+            print("loged in")
             return redirect("cons")
         else:
             return render(request,"login.html",{"message":"Wrong Username or Password"})

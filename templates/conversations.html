@@ -1,34 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conversations — ChatLife</title>
-  <meta name="description" content="All your ChatLife conversations in one place. Fast, private, beautifully simple." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/styles.css" />
-</head>
-<body>
+{% extends "home.html" %}
+{% load static %}
+{% block title %}Conversations — ChatLife{% endblock %}
+  {% block css %}
+  <link rel="stylesheet" href="{% static "css/styles.css" %}" />
+    {% endblock %}
 
-<nav class="nav">
-  <div class="container nav-inner">
-    <a href="/" class="brand"><span class="brand-dot"></span>ChatLife</a>
-    <div class="nav-links">
-      <a href="/">Home</a>
-      <a href="/conversations.html">Conversations</a>
-      <a href="/profile.html">Profile</a>
-      <a href="/#features">Features</a>
-      <a href="#">Changelog</a>
-    </div>
-    <div class="nav-cta">
-      <a href="/login.html" class="btn">Sign in</a>
-      <a href="/signup.html" class="btn btn-primary">Sign up →</a>
-    </div>
-  </div>
-</nav>
-
+{% block content %}
 <main class="conv-wrap">
   <div class="conv-header">
     <div>
@@ -82,19 +59,8 @@
     </form>
   </div>
 </div>
+{% endblock %}
+{% block js %}
+<script src="{% static "js/conversations.js" %}"></script>
+{% endblock %}
 
-<footer>
-  <div class="container" style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:16px;">
-    <div>© 2026 ChatLife Labs. All rights reserved.</div>
-    <div style="display:flex;gap:24px;">
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-      <a href="#">Status</a>
-      <a href="#">Twitter</a>
-    </div>
-  </div>
-</footer>
-
-<script src="/js/conversations.js"></script>
-</body>
-</html>

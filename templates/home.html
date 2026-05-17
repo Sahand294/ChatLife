@@ -26,10 +26,11 @@
             <a href="{% url "profile" %}">profile</a>
             <a href="{% url "cons" %}">Conversations</a>
         </div>
-        <div class="nav-cta">
-            <a href="{% url "log_in" %}" class="btn">Sign in</a>
-            {#            <a href="#" class="btn btn-primary">Get ChatLife →</a>#}
-        </div>
+        {% if not user_id %}
+            <div class="nav-cta">
+                <a href="{% url "log_in" %}" class="btn">Sign in</a>
+            </div>
+        {% endif %}
     </div>
 </nav>
 {% block content %}
