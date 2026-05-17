@@ -22,11 +22,16 @@
         <a href="#" class="brand"><span class="brand-dot"></span>ChatLife</a>
         <div class="nav-links">
             <a href="{% url "home" %}">Home</a>
-{#            <a href="#features">Features</a>#}
+            {#            <a href="#features">Features</a>#}
             <a href="{% url "profile" %}">profile</a>
             <a href="{% url "cons" %}">Conversations</a>
         </div>
-        {% if not user_id %}
+        {% if user.is_authenticated %}
+            <div class="nav-cta">
+                <a href="/accounts/logout/" class="btn">Logout</a>
+            </div>
+
+        {% else %}
             <div class="nav-cta">
                 <a href="{% url "log_in" %}" class="btn">Sign in</a>
             </div>

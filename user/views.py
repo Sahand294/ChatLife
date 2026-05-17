@@ -1,11 +1,9 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .models import *
 # Create your views here.
 def profile(request):
-    if request.session["user_id"]:
-        return render(request,"profile.html",{"user_id":int(request.session["user_id"])})
-    return render(request,"profile.html")
+    return render(request,"profile.html",{"user":request.user})
 def sign_up(request):
     if request.method == "POST":
         first_name = request.POST["firstname"]
@@ -24,7 +22,7 @@ def log_in(request):
         password = request.POST["password"]
         auth = authenticate(username=username,password=password)
         if auth:
-            request.session["user_id"] = auth.id
+            login(request,auth)
             print("loged in")
             return redirect("cons")
         else:
