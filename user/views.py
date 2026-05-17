@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
 from .models import *
 # Create your views here.
@@ -16,4 +17,13 @@ def sign_up(request):
         return redirect("home")
     return render(request,"signup.html")
 def log_in(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        auth = authenticate(username=username,password=password)
+        if auth:
+            request.session["user_id"] = auth.id
+            return redirect("cons")
+        else:
+            return render(request,"login.html",{"message":"Wrong Username or Password"})
     return render(request,"login.html")

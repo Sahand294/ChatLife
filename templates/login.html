@@ -20,7 +20,8 @@
       </ul>
     </div>
 
-    <form class="auth-form" id="login-form" novalidate>
+    <form class="auth-form" id="login-form" method="POST" novalidate>
+    {% csrf_token %}
       <h2>Sign in</h2>
       <p class="auth-sub">Enter your details to continue.</p>
 
@@ -38,8 +39,8 @@
       <div class="auth-divider"><span>or</span></div>
 
       <label class="auth-field">
-        <span>Email</span>
-        <input type="email" name="email" placeholder="you@chatlife.com" required autocomplete="email" />
+        <span>Username</span>
+        <input type="text" name="username" placeholder="spiderman123" required />
       </label>
 
       <label class="auth-field">
@@ -58,7 +59,11 @@
       <button type="submit" class="btn btn-primary auth-submit">Sign in →</button>
 
       <p class="auth-foot">New here? <a href="{% url "sign_up" %}" class="auth-link">Create an account</a></p>
-      <p class="auth-msg" id="auth-msg" role="status" aria-live="polite"></p>
+      <p class="auth-msg error" id="auth-msg" role="status" aria-live="polite">
+          {% if message %}
+          {{ message }}
+            {% endif %}
+      </p>
     </form>
   </div>
 </main>
