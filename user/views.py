@@ -8,8 +8,10 @@ def profile(request):
         if not user.username or not user.birthday or not user.gender:
             return redirect("complete")
     initials = f"{request.user.first_name[0].upper()}{request.user.last_name[0].upper()}"
+
     if request.method == "POST":
-        if request.POST["new_password"]:
+        n = request.POST.get("new_password")
+        if n:
             if request.user.check_password(request.POST["old_password"]):
                 if request.user.username == request.POST["username"]:
                     request.user.username = request.POST["username"]

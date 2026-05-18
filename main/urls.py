@@ -1,7 +1,6 @@
 from .views import *
 from django.urls import path
 urlpatterns = [
-    path("",home,name="home"),
-    path('conversations/',conversations,name="cons")
+    path("",home,name="home")
 
 ]
