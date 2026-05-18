@@ -16,6 +16,9 @@
                     <div class="profile-head">
                         <div class="profile-avatar" id="profile-initials">{{ initials }}</div>
                         <div class="profile-id">
+                            {% if msg %}
+                            <p class="auth-msg error" id="auth-msg" role="status" aria-live="polite">Error while changing password: {{ msg }}</p>
+                            {% endif %}
                             <h1 id="profile-name">{{ user.first_name }} {{ user.last_name }}</h1>
                             <p id="profile-handle">{{ user.email }}</p>
                             <p class="profile-status"><span class="dot online"></span> <span id="profile-presence">Active now</span>
@@ -23,6 +26,7 @@
                         </div>
                         <div class="profile-actions">
                             <button class="btn" id="profile-edit-btn">Edit profile</button>
+                            <button class="btn" id="password-edit">Change password</button>
                             <button class="btn btn-primary" id="profile-message-btn">Open chat →</button>
                         </div>
                     </div>
@@ -81,26 +85,58 @@
             </div>
             <form id="edit-form" class="auth-form" method="POST" style="padding:0;gap:14px;">
                 {% csrf_token %}
-                <label class="auth-field"><span>Display name</span><input name="username" placeholder="{{ user.user_name }}" type="text"
+                <label class="auth-field"><span>Display name</span><input value="{{ user.username }}" name="username"
+                                                                          type="text"
                                                                           required/></label>
-                <label class="auth-field"><span>First name</span><input name="first_name" placeholder="{{ user.first_name }}" type="text"
-                                                                          required/></label>
-                <label class="auth-field"><span>Last name</span><input name="last_name" type="text" placeholder="{{ user.last_name }}"
-                                                                          required/></label>
-{#                <label class="auth-field"><span>Handle</span><input name="handle" type="text" required/></label>#}
-                <label class="auth-field"><span>Birthday</span><input type="date" name="birthday" placeholder="{{ user.birthday }}" required max="2018-05-16"></label>
+                <label class="auth-field"><span>First name</span><input name="first_name" value="{{ user.first_name }}"
+                                                                        type="text"
+                                                                        required/></label>
+                <label class="auth-field"><span>Last name</span><input name="last_name" type="text"
+                                                                       value="{{ user.last_name }}"
+                                                                       required/></label>
+                {#                <label class="auth-field"><span>Handle</span><input name="handle" type="text" required/></label>#}
+                <label class="auth-field"><span>Birthday</span><input type="date" name="birthday"
+                                                                      value="{{ user.birthday|date:'Y-m-d' }}" required
+                                                                      max="2018-05-16"></label>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
                     {#                    <label class="auth-field"><span>Location</span><input name="location" type="text"/></label>#}
                     <label class="auth-field"><span>Gender</span>
                         <select name="gender" required>
-                            <option value="" disabled selected>Select…</option>
-                            <option value="female">Female</option>
-                            <option value="male">Male</option>
+                            {% if user.gender == "male" %}
+                                <option value="male" selected>Male</option>
+                                <option value="female">Female</option>
+                            {% else %}
+                                <option value="female" selected>Female</option>
+                                <option value="male">Male</option>
+                            {% endif %}
                         </select></label>
                 </div>
                 <button type="submit" class="btn btn-primary auth-submit">Save changes</button>
             </form>
         </div>
+    </div>
+    <div class="modal" id="edit-password" hidden>
+        <div class="modal-card">
+            <div class="modal-head">
+                <h2>Edit password</h2>
+                <button class="icon-btn" id="password-close" aria-label="Close">✕</button>
+            </div>
+            <form id="edit-form" class="auth-form" method="POST" style="padding:0;gap:14px;">
+                {% csrf_token %}
+                <label class="auth-field"><span>Username</span><input name="username"
+                                                                          type="text"
+                                                                          required/></label>
+                <label class="auth-field"><span>Old Password</span><input name="old_password"
+                                                                        type="password"
+                                                                        required/></label>
+                <label class="auth-field"><span>New Password</span><input name="new_password"
+                                                                        type="password"
+                                                                        required/></label>
+                <button type="submit" class="btn btn-primary auth-submit">Save changes</button>
+            </form>
+        </div>
+
+
     </div>
 {% endblock %}
 {% block js %}

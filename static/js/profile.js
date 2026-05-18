@@ -51,7 +51,7 @@
 
   // Edit modal
   const modal = document.getElementById("edit-modal");
-  const form = document.getElementById("edit-form");
+  const password = document.getElementById("edit-password");
 
   function openModal() {
 
@@ -63,10 +63,23 @@
     modal.hidden = true;
     document.body.style.overflow = "";
   }
+    function openPassword() {
 
+    console.log("open")
+    password.hidden = false;
+    document.body.style.overflow = "hidden";
+  }
+  function closePassword() {
+    password.hidden = true;
+    document.body.style.overflow = "";
+  }
+console.log(password)
   document.getElementById("profile-edit-btn").addEventListener("click", openModal);
   document.getElementById("modal-close").addEventListener("click", closeModal);
   modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+  document.getElementById("password-edit").addEventListener("click", openPassword);
+  document.getElementById("password-close").addEventListener("click", closePassword);
+  password.addEventListener("click", (e) => { if (e.target === password) closePassword(); });
 
 
   document.getElementById("profile-message-btn").addEventListener("click", () => {

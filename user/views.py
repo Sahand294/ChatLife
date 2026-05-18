@@ -1,21 +1,34 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.shortcuts import render, redirect
 from .models import *
 # Create your views here.
 def profile(request):
-    if request.method == "POST":
-        request.user.username = request.POST["username"]
-        request.user.birthday = request.POST["birthday"]
-        request.user.gender = request.POST["gender"]
-        request.user.first_name = request.POST["first_name"]
-        request.user.last_name = request.POST["last_name"]
-        request.user.save()
     user = request.user
     if user.is_authenticated:
         if not user.username or not user.birthday or not user.gender:
-            print(user.username, user.birthday, user.gender)
             return redirect("complete")
     initials = f"{request.user.first_name[0].upper()}{request.user.last_name[0].upper()}"
+    if request.method == "POST":
+        if request.POST["new_password"]:
+            if request.user.check_password(request.POST["old_password"]):
+                if request.user.username == request.POST["username"]:
+                    request.user.username = request.POST["username"]
+                    request.user.set_password(request.POST["new_password"])
+                    request.user.save()
+                    update_session_auth_hash(request, request.user)
+                else:
+                    return render(request, "profile.html",
+                                  {"user": request.user, "initials": initials, "msg": "Username is wrong"})
+            else:
+                return render(request, "profile.html", {"user": request.user, "initials": initials,"msg":"Password is wrong"})
+        else:
+            request.user.username = request.POST["username"]
+            request.user.birthday = request.POST["birthday"]
+            request.user.gender = request.POST["gender"]
+            request.user.first_name = request.POST["first_name"]
+            request.user.last_name = request.POST["last_name"]
+            request.user.save()
+
     return render(request,"profile.html",{"user":request.user,"initials":initials})
 def complete_account(request):
     if request.method == "POST":
