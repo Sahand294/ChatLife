@@ -4,98 +4,105 @@
     Your Profile!
 {% endblock %}
 {% block css %}
-<link rel="stylesheet" href="{% static "css/styles.css"%}">
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
 {% endblock %}
 {% block content %}
-<main class="profile-wrap">
-  <div class="container">
-    <div class="profile-card">
-      <div class="profile-cover"></div>
+    {% if user.is_authenticated %}
+        <main class="profile-wrap">
+            <div class="container">
+                <div class="profile-card">
+                    <div class="profile-cover"></div>
 
-      <div class="profile-head">
-        <div class="profile-avatar" id="profile-initials">MA</div>
-        <div class="profile-id">
-          <h1 id="profile-name">Maya Anderson</h1>
-          <p class="profile-handle" id="profile-handle">@maya</p>
-          <p class="profile-status"><span class="dot online"></span> <span id="profile-presence">Active now</span></p>
-        </div>
-        <div class="profile-actions">
-          <button class="btn" id="profile-edit-btn">Edit profile</button>
-          <button class="btn btn-primary" id="profile-message-btn">Open chat →</button>
-        </div>
-      </div>
+                    <div class="profile-head">
+                        <div class="profile-avatar" id="profile-initials">{{ initials }}</div>
+                        <div class="profile-id">
+                            <h1 id="profile-name">{{ user.first_name }} {{ user.last_name }}</h1>
+                            <p id="profile-handle">{{ user.email }}</p>
+                            <p class="profile-status"><span class="dot online"></span> <span id="profile-presence">Active now</span>
+                            </p>
+                        </div>
+                        <div class="profile-actions">
+                            <button class="btn" id="profile-edit-btn">Edit profile</button>
+                            <button class="btn btn-primary" id="profile-message-btn">Open chat →</button>
+                        </div>
+                    </div>
 
-      <section class="profile-section">
-        <h3>About</h3>
-        <p class="profile-bio" id="profile-bio">
-          Product designer obsessed with small details. I build interfaces that feel
-          calm, fast and a little bit magical. Coffee, type, and tiny animations.
-        </p>
-      </section>
+                    <section class="profile-section profile-grid">
+                        <div class="profile-info">
+                            <span class="profile-label">Birthday</span>
+                            <span class="profile-value" id="profile-email">{{ user.birthday }}</span>
+                        </div>
+                        <div class="profile-info">
+                            <span class="profile-label">Joined</span>
+                            <span class="profile-value" id="profile-joined">{{ user.created_at }}</span>
+                        </div>
+                        <div class="profile-info">
+                            <span class="profile-label">Gender</span>
+                            <span class="profile-value" id="profile-pronouns">{{ user.gender }}</span>
+                        </div>
+                    </section>
 
-      <section class="profile-section profile-grid">
-        <div class="profile-info">
-          <span class="profile-label">Email</span>
-          <span class="profile-value" id="profile-email">maya@chatlife.com</span>
-        </div>
-        <div class="profile-info">
-          <span class="profile-label">Location</span>
-          <span class="profile-value" id="profile-location">Lisbon, Portugal</span>
-        </div>
-        <div class="profile-info">
-          <span class="profile-label">Joined</span>
-          <span class="profile-value" id="profile-joined">May 2026</span>
-        </div>
-        <div class="profile-info">
-          <span class="profile-label">Pronouns</span>
-          <span class="profile-value" id="profile-pronouns">she / her</span>
-        </div>
-      </section>
+                    <section class="profile-section">
+                        <h3>Stats</h3>
+                        <div class="profile-stats">
+                            <div class="stat">
+                                <div class="num">1,284</div>
+                                <div class="label">Messages</div>
+                            </div>
+                            <div class="stat">
+                                <div class="num">42</div>
+                                <div class="label">Conversations</div>
+                            </div>
+                        </div>
+                    </section>
 
-      <section class="profile-section">
-        <h3>Stats</h3>
-        <div class="profile-stats">
-          <div class="stat"><div class="num">1,284</div><div class="label">Messages</div></div>
-          <div class="stat"><div class="num">42</div><div class="label">Conversations</div></div>
-          <div class="stat"><div class="num">7</div><div class="label">Voice rooms</div></div>
-          <div class="stat"><div class="num">98%</div><div class="label">Reply rate</div></div>
+                    {#                <section class="profile-section">#}
+                    {#                    <h3>Interests</h3>#}
+                    {#                    <div class="profile-tags">#}
+                    {#                        <span class="tag">Design</span>#}
+                    {#                        <span class="tag">Typography</span>#}
+                    {#                        <span class="tag">Coffee</span>#}
+                    {#                        <span class="tag">Hiking</span>#}
+                    {#                        <span class="tag">Indie music</span>#}
+                    {#                    </div>#}
+                    {#                </section>#}
+                </div>
+            </div>
+        </main>
+    {% else %}
+        <h1>Sign in to your Account First</h1>
+    {% endif %}
+    <!-- Edit modal -->
+    <div class="modal" id="edit-modal" hidden>
+        <div class="modal-card">
+            <div class="modal-head">
+                <h2>Edit profile</h2>
+                <button class="icon-btn" id="modal-close" aria-label="Close">✕</button>
+            </div>
+            <form id="edit-form" class="auth-form" method="POST" style="padding:0;gap:14px;">
+                {% csrf_token %}
+                <label class="auth-field"><span>Display name</span><input name="username" placeholder="{{ user.user_name }}" type="text"
+                                                                          required/></label>
+                <label class="auth-field"><span>First name</span><input name="first_name" placeholder="{{ user.first_name }}" type="text"
+                                                                          required/></label>
+                <label class="auth-field"><span>Last name</span><input name="last_name" type="text" placeholder="{{ user.last_name }}"
+                                                                          required/></label>
+{#                <label class="auth-field"><span>Handle</span><input name="handle" type="text" required/></label>#}
+                <label class="auth-field"><span>Birthday</span><input type="date" name="birthday" placeholder="{{ user.birthday }}" required max="2018-05-16"></label>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                    {#                    <label class="auth-field"><span>Location</span><input name="location" type="text"/></label>#}
+                    <label class="auth-field"><span>Gender</span>
+                        <select name="gender" required>
+                            <option value="" disabled selected>Select…</option>
+                            <option value="female">Female</option>
+                            <option value="male">Male</option>
+                        </select></label>
+                </div>
+                <button type="submit" class="btn btn-primary auth-submit">Save changes</button>
+            </form>
         </div>
-      </section>
-
-      <section class="profile-section">
-        <h3>Interests</h3>
-        <div class="profile-tags">
-          <span class="tag">Design</span>
-          <span class="tag">Typography</span>
-          <span class="tag">Coffee</span>
-          <span class="tag">Hiking</span>
-          <span class="tag">Indie music</span>
-        </div>
-      </section>
     </div>
-  </div>
-</main>
-
-<!-- Edit modal -->
-<div class="modal" id="edit-modal" hidden>
-  <div class="modal-card">
-    <div class="modal-head">
-      <h2>Edit profile</h2>
-      <button class="icon-btn" id="modal-close" aria-label="Close">✕</button>
-    </div>
-    <form id="edit-form" class="auth-form" style="padding:0;gap:14px;">
-      <label class="auth-field"><span>Display name</span><input name="name" type="text" required /></label>
-      <label class="auth-field"><span>Handle</span><input name="handle" type="text" required /></label>
-      <label class="auth-field"><span>Bio</span><textarea name="bio" rows="3" maxlength="240"></textarea></label>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-        <label class="auth-field"><span>Location</span><input name="location" type="text" /></label>
-        <label class="auth-field"><span>Pronouns</span><input name="pronouns" type="text" /></label>
-      </div>
-      <button type="submit" class="btn btn-primary auth-submit">Save changes</button>
-    </form>
-  </div>
-</div>
 {% endblock %}
 {% block js %}
-<script src="{% static "js/profile.js" %}"></script>
+    <script src="{% static "js/profile.js" %}"></script>
 {% endblock %}

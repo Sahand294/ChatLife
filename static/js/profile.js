@@ -41,19 +41,11 @@
   }
 
   const fields = ["name", "handle", "bio", "email", "location", "pronouns", "presence", "joined"];
-  let profile = load();
+
 
   function render() {
-    document.getElementById("profile-name").textContent = profile.name;
-    document.getElementById("profile-handle").textContent = profile.handle.startsWith("@") ? profile.handle : "@" + profile.handle;
-    document.getElementById("profile-bio").textContent = profile.bio;
-    document.getElementById("profile-email").textContent = profile.email;
-    document.getElementById("profile-location").textContent = profile.location;
-    document.getElementById("profile-pronouns").textContent = profile.pronouns;
-    document.getElementById("profile-joined").textContent = profile.joined;
-    document.getElementById("profile-presence").textContent = profile.presence;
-    document.getElementById("profile-initials").textContent = initials(profile.name);
-    document.title = profile.name + " — ChatLife";
+
+
   }
   render();
 
@@ -62,11 +54,8 @@
   const form = document.getElementById("edit-form");
 
   function openModal() {
-    form.elements.name.value = profile.name;
-    form.elements.handle.value = profile.handle;
-    form.elements.bio.value = profile.bio;
-    form.elements.location.value = profile.location;
-    form.elements.pronouns.value = profile.pronouns;
+
+    console.log("open")
     modal.hidden = false;
     document.body.style.overflow = "hidden";
   }
@@ -79,20 +68,6 @@
   document.getElementById("modal-close").addEventListener("click", closeModal);
   modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-    profile = Object.assign({}, profile, {
-      name: String(data.get("name") || "").trim() || profile.name,
-      handle: String(data.get("handle") || "").trim() || profile.handle,
-      bio: String(data.get("bio") || "").trim(),
-      location: String(data.get("location") || "").trim(),
-      pronouns: String(data.get("pronouns") || "").trim(),
-    });
-    save(profile);
-    render();
-    closeModal();
-  });
 
   document.getElementById("profile-message-btn").addEventListener("click", () => {
     window.location.href = "/conversations.html";

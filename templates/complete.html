@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Complete your profile — ChatLife</title>
+  <meta name="description" content="Finish setting up your ChatLife profile." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static "css/styles.css"%}" />
+</head>
+<body>
+<main class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-side">
+      <span class="eyebrow"><span class="pulse"></span> Almost there</span>
+      <h1>Complete your <span class="grad">profile</span>.</h1>
+      <p class="lead">Just three quick details and you're ready to chat. You can change these any time from your profile.</p>
+      <ul class="auth-points">
+        <li>🎂 Birthday — for birthday surprises</li>
+        <li>🙋 Gender — how you identify</li>
+        <li>✨ Username — your unique handle</li>
+      </ul>
+    </div>
+
+    <form class="auth-form" id="complete-form" method="POST" novalidate>
+        {% csrf_token %}
+      <h2>Finish setup</h2>
+      <p class="auth-sub">Tell us a little about you.</p>
+
+      <label class="auth-field">
+        <span>Username</span>
+        <input type="text" name="username" placeholder="maya" required minlength="2" autocomplete="off" pattern="[a-zA-Z0-9_.-]+" />
+      </label>
+
+      <label class="auth-field">
+        <span>Gender</span>
+        <select name="gender" required autocomplete="off">
+          <option value="" disabled selected>Select…</option>
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+        </select>
+      </label>
+
+      <label class="auth-field">
+        <span>Birthday</span>
+        <input type="date" name="birthday" required autocomplete="off"/>
+      </label>
+
+      <button type="submit" class="btn btn-primary auth-submit">Finish & continue →</button>
+      <p class="auth-msg" id="auth-msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</main>
+
+<footer>
+  <div class="container" style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:16px;">
+    <div>© 2026 ChatLife Labs. All rights reserved.</div>
+    <div style="display:flex;gap:24px;">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Status</a>
+      <a href="#">Twitter</a>
+    </div>
+  </div>
+</footer>
+
+<script src="{% static "js/complete.js"%}"></script>
+</body>
+</html>
